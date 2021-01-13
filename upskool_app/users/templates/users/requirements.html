@@ -1,0 +1,17 @@
+{% extends "users/base.html" %}
+{% block content %}
+{% for requirement in requirements %}
+    <article class="media content-section">
+    <img class="rounded-circle article-img" src="{{ requirement.author.profile.image.url }}">
+    <div class="media-body">
+        <div class="article-metadata">
+        <a class="mr-2" href="#">{{ requirement.author }}</a>
+        <small class="text-muted">{{ requirement.date_posted|date:"F d, Y" }}</small>
+        </div>
+        <h2><a class="article-title" href="{% url 'req-detail' requirement.id %}">{{ requirement.title }}</a></h2>
+        <p class="article-content">{{ requirement.content }}</p>
+    </div>
+    </article>
+{% endfor %}
+    
+{% endblock content %}
