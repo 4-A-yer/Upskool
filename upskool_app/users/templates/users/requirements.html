@@ -9,7 +9,7 @@
         <small class="text-muted">{{ requirement.date_posted|date:"F d, Y" }}</small>
         </div>
         <h2><a class="article-title" href="{% url 'req-detail' requirement.id %}">{{ requirement.title }}</a></h2>
-        <p class="article-content">{{ requirement.content }}</p>
+        <!-- <p class="article-content">{{ requirement.content }}</p> -->
     </div>
     </article>
 {% endfor %}
