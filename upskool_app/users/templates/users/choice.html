@@ -1,0 +1,9 @@
+{% extends "users/base.html" %}
+{% block content %}
+<h1>Who you are</h1>
+<div>
+    <a href="{% url 'upskool-register' %}">Government school</a>
+    <br>
+    <a href="{% url 'ngo-register' %}">NGO</a>
+</div>
+{% endblock content %}

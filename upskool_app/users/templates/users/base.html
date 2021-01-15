@@ -11,12 +11,20 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="{% static 'users/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'users/style.css' %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Texturina:wght@600&display=swap" rel="stylesheet">
+
+
+
+    {% block content1 %}{% endblock content1 %}
 
     {% if title %}
         <title>Upskool- {{ title }}</title>
     {% else %}
         <title>Upskool</title>
     {% endif %}
+    {% block content2 %}{% endblock content2 %}
 </head>
 <body>
     <header class="site-header">
@@ -36,12 +44,12 @@
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
               {% if user.is_authenticated %}
-                <a class="nav-item nav-link" href="{% url 'req-create' %}">New requirement</a>
+                <!-- <a class="nav-item nav-link" href="{% url 'req-create' %}">New requirement</a> -->
                 <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
                 <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
               {% else %}
-                <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-                <a class="nav-item nav-link" href="{% url 'upskool-register' %}">Register</a>
+                <a class="nav-item nav-link" href="{% url 'choice-login' %}">Login</a>
+                <a class="nav-item nav-link" href="{% url 'choice' %}">Register</a>
               {% endif %}
             </div>
           </div>

@@ -18,6 +18,12 @@ from django.views.generic import (
 
 def home(request):
     return render(request, 'users/home.html')
+    
+def choice(request):
+    return render(request, 'users/choice.html')
+
+def choicelogin(request):
+    return render(request, 'users/choice1.html')
 
 class ReqListView(ListView):
     model = Requirement
@@ -38,9 +44,9 @@ class UserReqListView(ListView):
         return Requirement.objects.filter(author=user).order_by('-date_posted')
 
 
-
 class ReqDetailView(DetailView):
     model = Requirement
+
 
 class ReqCreateView(LoginRequiredMixin, CreateView):
     model = Requirement
@@ -49,6 +55,7 @@ class ReqCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
 
 class ReqUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Requirement
@@ -114,3 +121,7 @@ def profile(request):
     }
 
     return render(request, 'users/profile.html', context)
+
+
+
+
