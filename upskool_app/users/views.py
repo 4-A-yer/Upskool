@@ -25,6 +25,9 @@ def choice(request):
 def choicelogin(request):
     return render(request, 'users/choice1.html')
 
+
+# Requirement views
+
 class ReqListView(ListView):
     model = Requirement
     template_name = 'users/requirements.html'  # <app>/<model>_<viewtype>.html
@@ -82,8 +85,7 @@ class ReqDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return False
 
 
-def stories(request):
-    return render(request, 'users/stories.html')
+# register view
 
 def register(request):
     if request.method == 'POST':
@@ -97,6 +99,8 @@ def register(request):
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
 
+
+# profile View
 
 @login_required
 def profile(request):
@@ -124,4 +128,61 @@ def profile(request):
 
 
 
+# Stories View
 
+
+# class StoryListView(ListView):
+#     model = Stories
+#     template_name = 'users/story.html'  # <app>/<model>_<viewtype>.html
+#     context_object_name = 'stories'
+#     ordering = ['-date_posted']
+#     paginate_by = 5
+
+# class UserStoryListView(ListView):
+#     model = Stories
+#     template_name = 'users/user_story.html'  # <app>/<model>_<viewtype>.html
+#     context_object_name = 'stories'
+#     paginate_by = 5
+
+
+#     def get_queryset(self):
+#         user = get_object_or_404(User, username = self.kwargs.get('username'))
+#         return Stories.objects.filter(author=user).order_by('-date_posted')
+
+
+# class StoryDetailView(DetailView):
+#     model = Stories
+
+
+# class StoryCreateView(LoginRequiredMixin, CreateView):
+#     model = Stories
+#     fields = ['title', 'content']
+
+#     def form_valid(self, form):
+#         form.instance.author = self.request.user
+#         return super().form_valid(form)
+
+
+# class StoryUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+#     model = Stories
+#     fields = ['title', 'content']
+
+#     def form_valid(self, form):
+#         form.instance.author = self.request.user
+#         return super().form_valid(form)
+
+#     def test_func(self):
+#         req = self.get_object()
+#         if self.request.user == req.author:
+#             return True
+#         return False
+
+# class StoryDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+#     model = Stories
+#     success_url = '/'
+
+#     def test_func(self):
+#         req = self.get_object()
+#         if self.request.user == req.author:
+#             return True
+#         return False

@@ -22,10 +22,10 @@ def ngoregister(request):
 @login_required
 def ngoprofile(request):
     if request.method == 'POST':
-        u_form = NgoUpdateForm(request.POST, instance=request.user)
+        u_form = NgoUpdateForm(request.POST, instance=request.ngouser)
         p_form = NgoProfileUpdateForm(request.POST,
                                    request.FILES,
-                                   instance=request.user.profile)
+                                   instance=request.ngouser.ngoprofile)
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
@@ -33,8 +33,8 @@ def ngoprofile(request):
             return redirect('ngo-profile')
 
     else:
-        u_form = NgoUpdateForm(instance=request.user)
-        p_form = NgoProfileUpdateForm(instance=request.user.profile)
+        u_form = NgoUpdateForm(instance=request.ngouser)
+        p_form = NgoProfileUpdateForm(instance=request.ngouser.ngoprofile)
 
     context = {
         'u_form': u_form,

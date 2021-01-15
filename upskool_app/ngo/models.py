@@ -5,14 +5,14 @@ from PIL import Image
 # Create your models here.
 class NgoProfile(models.Model):
     ngouser = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    image = models.ImageField(default='default.jpg', upload_to='ngo_profile_pics')
 
     def __str__(self):
-        return f'{self.user.username} Profile'
+        return f'{self.ngouser.username} Profile'
 
 
     def save(self,*args, **kwargs):
-        super(Profile, self).save(*args, **kwargs)
+        super(NgoProfile, self).save(*args, **kwargs)
 
         img = Image.open(self.image.path)
 
