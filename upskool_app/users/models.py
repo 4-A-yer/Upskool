@@ -4,10 +4,15 @@ from PIL import Image
 from django.urls import reverse
 from django.utils import timezone
 
+PROFILE_TYPES = (
+    (u'Gov', 'Government'),
+    (u'NGO', 'NGO'),
+)
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    type = models.CharField(choices=PROFILE_TYPES, max_length=16)
 
     def __str__(self):
         return f'{self.user.username} Profile'
@@ -22,6 +27,21 @@ class Profile(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.image.path)
+
+# class GovUser(models.Model):
+#     profile = models.ForeignKey(Profile,  on_delete=models.CASCADE)
+#     # Corporate fields here
+
+#     class Meta:
+#         db_table = 'gov_user'
+
+
+# class NgoUser(models.Model):
+#     profile = models.ForeignKey(Profile,  on_delete=models.CASCADE)
+#     # Corporate fields here
+
+#     class Meta:
+#         db_table = 'ngo_user'
 
 
 

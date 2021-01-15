@@ -19,13 +19,6 @@ from django.views.generic import (
 def home(request):
     return render(request, 'users/home.html')
     
-def choice(request):
-    return render(request, 'users/choice.html')
-
-def choicelogin(request):
-    return render(request, 'users/choice1.html')
-
-
 # Requirement views
 
 class ReqListView(ListView):
@@ -100,10 +93,10 @@ def register(request):
     return render(request, 'users/register.html', {'form': form})
 
 
-# profile View
+# profile View9
 
 @login_required
-def profile(request):
+def profile(request, pk):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST,
@@ -113,76 +106,36 @@ def profile(request):
             u_form.save()
             p_form.save()
             messages.success(request, f'Your account has been updated!')
-            return redirect('profile')
+            return redirect('/')
 
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
 
+    cr_user = Profile.objects.get(pk=pk)
+
+    result = False
+
+    if cr_user.type == 'Gov':
+        result = True
+
+    
+
     context = {
         'u_form': u_form,
-        'p_form': p_form
+        'p_form': p_form,
+        'result': result,
+        'cr_user': cr_user
     }
 
     return render(request, 'users/profile.html', context)
 
 
 
-# Stories View
-
-
-# class StoryListView(ListView):
-#     model = Stories
-#     template_name = 'users/story.html'  # <app>/<model>_<viewtype>.html
-#     context_object_name = 'stories'
-#     ordering = ['-date_posted']
-#     paginate_by = 5
-
-# class UserStoryListView(ListView):
-#     model = Stories
-#     template_name = 'users/user_story.html'  # <app>/<model>_<viewtype>.html
-#     context_object_name = 'stories'
-#     paginate_by = 5
-
-
-#     def get_queryset(self):
-#         user = get_object_or_404(User, username = self.kwargs.get('username'))
-#         return Stories.objects.filter(author=user).order_by('-date_posted')
-
-
-# class StoryDetailView(DetailView):
-#     model = Stories
-
-
-# class StoryCreateView(LoginRequiredMixin, CreateView):
-#     model = Stories
-#     fields = ['title', 'content']
-
-#     def form_valid(self, form):
-#         form.instance.author = self.request.user
-#         return super().form_valid(form)
-
-
-# class StoryUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-#     model = Stories
-#     fields = ['title', 'content']
-
-#     def form_valid(self, form):
-#         form.instance.author = self.request.user
-#         return super().form_valid(form)
-
-#     def test_func(self):
-#         req = self.get_object()
-#         if self.request.user == req.author:
-#             return True
-#         return False
-
-# class StoryDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-#     model = Stories
-#     success_url = '/'
-
-#     def test_func(self):
-#         req = self.get_object()
-#         if self.request.user == req.author:
-#             return True
-#         return False
+# def is_gov_profile(profile):
+#     context = {
+#         'result':True
+#     }
+#     if profile.gov_user:
+#         return render(request, 'user/profile.html',context)
+    

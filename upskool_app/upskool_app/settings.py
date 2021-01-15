@@ -33,7 +33,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'users.apps.UsersConfig',
-    'ngo.apps.NgoConfig',
     'stories.apps.StoriesConfig',
     'django.contrib.admin',
     'crispy_forms',
