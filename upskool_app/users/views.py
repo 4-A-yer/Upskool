@@ -1,5 +1,6 @@
   
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
@@ -23,6 +24,20 @@ class ReqListView(ListView):
     template_name = 'users/requirements.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'requirements'
     ordering = ['-date_posted']
+    paginate_by = 5
+
+class UserReqListView(ListView):
+    model = Requirement
+    template_name = 'users/user_requirement.html'  # <app>/<model>_<viewtype>.html
+    context_object_name = 'requirements'
+    paginate_by = 5
+
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username = self.kwargs.get('username'))
+        return Requirement.objects.filter(author=user).order_by('-date_posted')
+
+
 
 class ReqDetailView(DetailView):
     model = Requirement

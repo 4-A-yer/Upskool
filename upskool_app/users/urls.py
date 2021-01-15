@@ -6,13 +6,16 @@ from .views import (
     ReqDetailView,
     ReqCreateView,
     ReqUpdateView,
-    ReqDeleteView
+    ReqDeleteView,
+    UserReqListView
+
 )
 
 
 urlpatterns = [
     path('register/', views.register, name='upskool-register'),
     path('', views.home, name='upskool-home'),
+    path('user/<str:username>', UserReqListView.as_view(), name='user_requirement'),
     path('profile/',views.profile, name='profile'),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
