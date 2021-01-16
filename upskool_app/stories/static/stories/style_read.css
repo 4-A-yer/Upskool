@@ -1,0 +1,157 @@
+/*-------------------------------stories page---------------------------------------*/
+body{
+	background-color: #f2f7ff;
+	margin: 0;
+}
+.bg-steel {
+  background-color: #011634;
+}
+
+.site-header .navbar-nav .nav-link {
+  color: #cbd5db;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 500;
+}
+
+
+.para{
+  color: white;
+}
+
+body{
+	margin: 0;
+}
+
+.column {
+  float: left;
+}
+
+
+.column.side {
+  width: 10%;
+}
+
+
+.column.main {
+  width: 80%;
+  background-color: #041022;
+}
+
+
+#inner-main {
+	margin-left: 20px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+@media screen and (max-width: 600px) {
+  .column.side, .column.main {
+    width: 100%;
+  }
+}
+
+#top {
+	background-image: url('blue13.jpg');
+	background-repeat: no-repeat;
+  	background-attachment: fixed;
+  	background-size: cover;
+}
+
+#ss {
+	font-size: 80px;
+	color: #041022;
+	text-align: center;
+	padding: 200px 300px 200px 300px;
+}
+
+.story{
+	width:cover;
+	display:block;
+	margin-right: 30px;
+	margin-bottom: 10px;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	transition: 0.3s;
+	border-radius: 5px;
+	background-color: #f2f7ff;
+}
+
+.container {
+	display: inline-flex;
+}
+
+.content {
+	margin-left: 10px;
+}
+
+img {
+	border-radius: 5px 0 0 5px;
+	margin: 0;
+}
+
+
+h4, details{
+  display:inline;
+}
+
+details {
+  position:relative;
+  margin-bottom: 20px;
+}
+details summary {
+  display:block;
+  cursor: pointer;
+  color: black;
+}
+details summary:focus {
+  outline:none;
+}
+details[open] {
+  display:block;
+  padding-bottom:25px;
+  padding-top:10px;
+  animation: open .2s linear;
+}
+details[open] summary {
+  position:absolute;
+  bottom: 0;
+  left:0;
+}
+
+details #open{padding-left:5px;text-align:middle;}
+details #open:after{
+    display: inline-block;
+    position:relative;
+    top: -3px;
+    padding-left: 8px;
+    content: "\00bb";
+    transform: rotate(90deg);
+}
+details[open] #open{display:none;}
+details #close{display:none;}
+details[open] #close{display:block;}
+
+::-webkit-details-marker {display: none;}
+
+
+
+@keyframes open {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

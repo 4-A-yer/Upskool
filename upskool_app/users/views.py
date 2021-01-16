@@ -93,7 +93,7 @@ def register(request):
     return render(request, 'users/register.html', {'form': form})
 
 
-# profile View9
+# profile View
 
 @login_required
 def profile(request, pk):
@@ -119,8 +119,6 @@ def profile(request, pk):
     if cr_user.type == 'Gov':
         result = True
 
-    
-
     context = {
         'u_form': u_form,
         'p_form': p_form,
@@ -132,10 +130,4 @@ def profile(request, pk):
 
 
 
-# def is_gov_profile(profile):
-#     context = {
-#         'result':True
-#     }
-#     if profile.gov_user:
-#         return render(request, 'user/profile.html',context)
-    
+

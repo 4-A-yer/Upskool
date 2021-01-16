@@ -3,13 +3,15 @@
     <h1 class="mb-3">Stories by {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
 {% for story in stories %}
     <article class="media content-section">
-    <img class="rounded-circle article-img" src="{{ story.author.profile.image.url }}">
     <div class="media-body">
         <div class="article-metadata">
-        <a class="mr-2" href="{% url 'user_story' story.author.username %}">{{ story.author }}</a>
-        <small class="text-muted">{{ requirement.date_posted|date:"F d, Y" }}</small>
+        <a class="mr-2" href="{% url 'user_story' story.story_author.username %}">{{ story.story_author }}</a>
+        <small class="text-muted">{{ story.date_posted|date:"F d, Y" }}</small>
         </div>
-        <h2><a class="article-title" href="{% url 'story-detail' story.id %}">{{ story.title }}</a></h2>
+        <div>
+            <img class="article-img" src="{{ story.story_image.url }}">
+        </div>
+        <h2><a class="article-title" href="{% url 'story-detail' story.id %}">{{ story.story_title }}</a></h2>
         <!-- <p class="article-content">{{ requirement.content }}</p> -->
     </div>
     </article>

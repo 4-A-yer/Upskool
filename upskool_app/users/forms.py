@@ -4,14 +4,8 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
 
 
-# PROFILE_TYPES = (
-#     (u'Gov', 'Government'),
-#     (u'NGO', 'NGO'),
-# )
-
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
-    # type = forms.ChoiceField(choices= PROFILE_TYPES)
     
 
     class Meta:
@@ -21,7 +15,6 @@ class UserRegisterForm(UserCreationForm):
 
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()
-    # type = forms.ChoiceField(choices= PROFILE_TYPES)
 
     class Meta:
         model = User
@@ -31,4 +24,4 @@ class UserUpdateForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = "__all__"
+        fields = ['image','type']

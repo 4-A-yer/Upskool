@@ -28,22 +28,6 @@ class Profile(models.Model):
             img.thumbnail(output_size)
             img.save(self.image.path)
 
-# class GovUser(models.Model):
-#     profile = models.ForeignKey(Profile,  on_delete=models.CASCADE)
-#     # Corporate fields here
-
-#     class Meta:
-#         db_table = 'gov_user'
-
-
-# class NgoUser(models.Model):
-#     profile = models.ForeignKey(Profile,  on_delete=models.CASCADE)
-#     # Corporate fields here
-
-#     class Meta:
-#         db_table = 'ngo_user'
-
-
 
 class Requirement(models.Model):
     title = models.CharField(max_length=100)
@@ -56,5 +40,8 @@ class Requirement(models.Model):
 
     def get_absolute_url(self):
         return reverse('req-detail', kwargs={'pk': self.pk})
+
+
+
 
 

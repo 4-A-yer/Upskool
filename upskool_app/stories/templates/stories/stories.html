@@ -1,17 +1,83 @@
-{% extends "users/base.html" %}
-{% block content %}
-{% for story in stroies %}
-    <article class="media content-section">
-    <img class="rounded-circle article-img" src="{{ story.author.profile.image.url }}">
-    <div class="media-body">
-        <div class="article-metadata">
-        <a class="mr-2" href="{% url 'user_story' story.author.username %}">{{ story.author }}</a>
-        <small class="text-muted">{{ requirement.date_posted|date:"F d, Y" }}</small>
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stories</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" type="text/css" href="{% static 'stories/style_read.css' %}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+          <div class="container">
+            <a class="navbar-brand mr-4" href="#">Upskool</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarToggle">
+              <div class="navbar-nav mr-auto">
+                <a class="nav-item nav-link" href="{% url 'upskool-home' %}">Home</a>
+                <!-- <a class="nav-item nav-link" href="#">About</a> -->
+                <a class="nav-item nav-link" href="{% url 'requirements' %}">Requirements</a>
+                <a class="nav-item nav-link" href="{% url 'stories' %}">Stories</a>
+              </div>
+              <!-- Navbar Right Side -->
+              <div class="navbar-nav">
+                {% if user.is_authenticated %}
+                  <a class="nav-item nav-link" href="{% url 'story-create' %}">Add Story</a>
+                  <a class="nav-item nav-link" href="{% url 'profile' user.id %}">Profile</a>
+                  <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                  <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                  <a class="nav-item nav-link" href="{% url 'upskool-register' %}">Register</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+	 <!-- Layout 2 columns -->
+	<div id="top"><h1 id="ss">SUCCESS STORIES</h1></div>
+	<div class="row">
+	     <div class="column side">
+		  	 <div id="inner">
+			     <h2></h2>
+			     
+		 </div></div>
+
+  
+    <div class="column main">
+        <div id="inner-main">
+            <section><br></section>
+            {% for story in stories %}
+             
+             <div class="story">
+                <a class="mr-2 para" href="{% url 'user_story' story.story_author.username %}">{{ story.story_author }}</a>
+                 <div class="container">
+                 
+                 <img src="{{ story.story_image.url }}" alt="something" width="150px" height="150px">
+                 <div class="content">
+                 <h4><a href="{% url 'story-detail' story.id %}">{{ story.story_title }}</a></h2></h4>
+                 <details>
+                     <summary>
+                         <span id="open">Read more</span> 
+                           <span id="close">Read less</span> 
+                     </summary>
+                    <p>
+                        {{ story.story_content }}
+                    </p>
+                 </details>
+             </div>
+             </div>
+             </div>
+             {% endfor %}
         </div>
-        <h2><a class="article-title" href="{% url 'story-detail' story.id %}">{{ story.title }}</a></h2>
     </div>
-    </article>
-{% endfor %}
+
 
 
 {% if is_paginated %}
@@ -35,4 +101,7 @@
     {% endif %}
 
 {% endif %}    
-{% endblock content %}
+
+</div>
+</body>
+</html>

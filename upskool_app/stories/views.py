@@ -10,12 +10,13 @@ from django.views.generic import (
     DeleteView
 )
 
-# Create your views here.
+# Story view
+
 class StoryListView(ListView):
     model = Stories
     template_name = 'stories/stories.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'stories'
-    ordering = ['-date_posted']
+    ordering = ['-story_date_posted']
     paginate_by = 5
 
 class UserStoryListView(ListView):
@@ -27,7 +28,7 @@ class UserStoryListView(ListView):
 
     def get_queryset(self):
         user = get_object_or_404(User, username = self.kwargs.get('username'))
-        return Stories.objects.filter(author=user).order_by('-date_posted')
+        return Stories.objects.filter(story_author=user).order_by('-story_date_posted')
 
 
 class StoryDetailView(DetailView):
@@ -36,24 +37,24 @@ class StoryDetailView(DetailView):
 
 class StoryCreateView(LoginRequiredMixin, CreateView):
     model = Stories
-    fields = ['title', 'content']
+    fields = ['story_title', 'story_content']
 
     def form_valid(self, form):
-        form.instance.author = self.request.user
+        form.instance.story_author = self.request.user
         return super().form_valid(form)
 
 
 class StoryUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Stories
-    fields = ['title', 'content']
+    fields = ['story_title', 'story_content']
 
     def form_valid(self, form):
-        form.instance.author = self.request.user
+        form.instance.story_author = self.request.user
         return super().form_valid(form)
 
     def test_func(self):
-        req = self.get_object()
-        if self.request.user == req.author:
+        st = self.get_object()
+        if self.request.user == st.story_author:
             return True
         return False
 
@@ -62,8 +63,9 @@ class StoryDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     success_url = '/'
 
     def test_func(self):
-        req = self.get_object()
-        if self.request.user == req.author:
+        st = self.get_object()
+        if self.request.user == st.story_author:
             return True
         return False
+
 
